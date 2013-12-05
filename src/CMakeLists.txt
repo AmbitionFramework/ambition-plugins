@@ -22,7 +22,7 @@ link_directories(${APA_LIB_PATHS})
 add_definitions(${APA_DEPS_CFLAGS_ALL})
 
 add_library(${PPKGNAME}-${PPKGVERSION} SHARED ${APA_VALA_C})
-target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${CORE_DEPS_LIBRARIES} ${APA_DEPS_LIBRARIES})
+target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${APA_DEPS_LIBRARIES})
 
 install (
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.vapi ${PPKGNAME}-${PPKGVERSION}.deps

@@ -3,7 +3,7 @@ set (BINNAME test-ambition-plugin-almanna)
 include(ValaPrecompile)
 
 SET( TAPA_VALA_PACKAGES
-    ambition-plugin-almanna-${PPKGVERSION}
+    ${PPKGNAME}-${PPKGVERSION}
     posix
 	${APA_DEPS_PACKAGES}
 )
@@ -25,7 +25,6 @@ set(TAPA_CFLAGS
     -w
 )
 set(TAPA_LIB_PATHS
-    ${CORE_DEPS_LIBRARY_DIRS}
     ${APA_DEPS_LIBRARY_DIRS}
     ${CMAKE_BINARY_DIR}/src
 )
@@ -35,7 +34,7 @@ add_definitions(${TAPA_CFLAGS})
 add_executable(${BINNAME} ${TAPA_VALA_C})
 include_directories(${CMAKE_BINARY_DIR}/src)
 add_dependencies(${BINNAME} ${PKGNAME}-${PKGVERSION})
-target_link_libraries(${BINNAME} ${CORE_DEPS_LIBRARIES} ${APA_DEPS_LIBRARIES} gthread-2.0 ambition-plugin-almanna-${PPKGVERSION})
+target_link_libraries(${BINNAME} ${APA_DEPS_LIBRARIES} gthread-2.0 ${PPKGNAME}-${PPKGVERSION})
 include(Tests)
 add_test_executable(${BINNAME})
 file(COPY ${CMAKE_SOURCE_DIR}/test/test.db DESTINATION ${CMAKE_BINARY_DIR}/test/)
