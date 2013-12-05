@@ -24,7 +24,7 @@ link_directories(${APCDB_LIB_PATHS})
 add_definitions(${APCDB_DEPS_CFLAGS_ALL})
 
 add_library(${PPKGNAME}-${PPKGVERSION} SHARED ${APCDB_VALA_C})
-target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${CORE_DEPS_LIBRARIES} ${APCDB_DEPS_LIBRARIES})
+target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${APCDB_DEPS_LIBRARIES})
 
 install (
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.vapi ${CMAKE_SOURCE_DIR}/couchdb-glib-1.0.vapi ${PPKGNAME}-${PPKGVERSION}.deps
