@@ -8,10 +8,7 @@ vala_precompile(AES_VALA_C
 PACKAGES
     ${AES_VALA_PACKAGES}
 OPTIONS
-	--thread
-    --vapidir=${CMAKE_SOURCE_DIR}/vapi
-    --vapidir=${CMAKE_BINARY_DIR}/src/libambition
-	--enable-experimental
+	${DEFAULT_VALA_OPTIONS}
 GENERATE_VAPI
 	${PPKGNAME}-${PPKGVERSION}
 GENERATE_HEADER
