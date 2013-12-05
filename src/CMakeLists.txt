@@ -27,14 +27,14 @@ link_directories(${APTBS_LIB_PATHS})
 add_definitions(${APTBS_DEPS_CFLAGS_ALL})
 
 add_library(${PPKGNAME}-${PPKGVERSION} SHARED ${APTBS_VALA_C})
-target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${CORE_DEPS_LIBRARIES} ${APTBS_DEPS_LIBRARIES})
+target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${APTBS_DEPS_LIBRARIES})
 
 install (
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.vapi ${PPKGNAME}-${PPKGVERSION}.deps
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/TwitterBootstrap-${PPKGVERSION}/)
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/)
 install (
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.h
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/TwitterBootstrap-${PPKGVERSION}/)
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/)
 install (
 	TARGETS ${PPKGNAME}-${PPKGVERSION}
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/TwitterBootstrap-${PPKGVERSION}/)
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/)
