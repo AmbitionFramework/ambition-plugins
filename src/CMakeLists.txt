@@ -1,0 +1,38 @@
+SET( APA_VALA_FILES
+	AlmannaPlugin.vala
+	AlmannaSession.vala
+	AlmannaUtility.vala
+	AuthorizerAlmanna.vala
+	StorableAlmanna.vala
+	UserAlmanna.vala
+)
+
+vala_precompile(APA_VALA_C
+	${APA_VALA_FILES}
+PACKAGES
+    ${APA_VALA_PACKAGES}
+OPTIONS
+	${DEFAULT_VALA_OPTIONS}
+GENERATE_VAPI
+	${PPKGNAME}-${PPKGVERSION}
+GENERATE_HEADER
+	${PPKGNAME}-${PPKGVERSION})
+
+link_directories(${APA_LIB_PATHS})
+add_definitions(${APA_DEPS_CFLAGS_ALL})
+
+add_library(${PPKGNAME}-${PPKGVERSION} SHARED ${APA_VALA_C})
+target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${CORE_DEPS_LIBRARIES} ${APA_DEPS_LIBRARIES})
+
+install (
+	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.vapi ${PPKGNAME}-${PPKGVERSION}.deps
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+)
+install (
+	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.h
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+)
+install (
+	TARGETS ${PPKGNAME}-${PPKGVERSION}
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+)
