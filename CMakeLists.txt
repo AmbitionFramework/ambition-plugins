@@ -1,68 +1,71 @@
-set (PPKGNAME ambition-plugin-servicething)
-set (PPKGVERSION 0.1.0)
+cmake_minimum_required (VERSION 2.8)
+cmake_policy(VERSION 2.8)
+project(ambition-plugin-servicething)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake )
+enable_testing()
 
-SET( APST_VALA_FILES
-	ServiceThingPlugin.vala
-	Service.vala
-	Serializer/ISerializer.vala
-	Serializer/HTML.vala
-	Serializer/JSON.vala
-	Serializer/XML.vala
-)
+find_package(Vala REQUIRED)
+include(ValaVersion)
+include(ValaPrecompile)
+ensure_vala_version("0.16.0" MINIMUM)
+
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+	SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "install prefix" FORCE)
+ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+
+IF(LIB_INSTALL_DIR)
+ELSE()
+SET(LIB_INSTALL_DIR lib)
+ENDIF()
+
+set (PPKGNAME ambition-plugin-servicething)
+set (PLUGINNAME ServiceThing)
+set (PPKGVERSION 0.1.0)
+set (PREFIX ${CMAKE_INSTALL_PREFIX})
+set (DOLLAR "$")
 
 SET( APST_DEPS_PACKAGES
+	glib-2.0
+	gee-0.8
+	gmodule-2.0
+	ambition-0.1
 	json-glib-1.0
 )
 
 SET( APST_VALA_PACKAGES
-	${CORE_DEPS_PACKAGES}
 	${APST_DEPS_PACKAGES}
-	ambition-0.1
 	posix
 )
 
-vala_precompile(APST_VALA_C
-	${APST_VALA_FILES}
-PACKAGES
-	${APST_VALA_PACKAGES}
-OPTIONS
-	--thread
-	--vapidir=${CMAKE_SOURCE_DIR}/src/optional/plugin-servicething
-	--vapidir=${CMAKE_SOURCE_DIR}/vapi
-	--vapidir=${CMAKE_BINARY_DIR}/src/libambition
-	--enable-experimental
-GENERATE_VAPI
-	${PPKGNAME}-${PPKGVERSION}
-GENERATE_HEADER
-	${PPKGNAME}-${PPKGVERSION})
-
 find_package(PkgConfig)
 pkg_check_modules(APST_DEPS REQUIRED ${APST_DEPS_PACKAGES})
-set(APST_CFLAGS
-	${CORE_DEPS_CFLAGS_ALL}
+SET( CMAKE_BUILD_TYPE Debug )
+SET( APST_DEPS_CFLAGS_ALL
 	${APST_DEPS_CFLAGS}
 	${APST_DEPS_CFLAGS_OTHER}
-	-I${CMAKE_BINARY_DIR}/src/libambition
-	-w
 )
 set(APST_LIB_PATHS
-	${APST_DEPS_LIBRARY_DIRS}
-	${CMAKE_BINARY_DIR}/src/libambition
+    ${APST_DEPS_LIBRARY_DIRS}
 )
-link_directories(${APST_LIB_PATHS})
-add_definitions(${APST_CFLAGS})
 
-add_library(${PPKGNAME}-${PPKGVERSION} SHARED ${APST_VALA_C})
-target_link_libraries(${PPKGNAME}-${PPKGVERSION} ${CORE_DEPS_LIBRARIES} ${APST_DEPS_LIBRARIES} ambition-0.1)
+set (VAPIDIRS 
+	--vapidir='${CMAKE_SOURCE_DIR}'
+	--vapidir='${CMAKE_SOURCE_DIR}/vapi'
+	--vapidir='${BINSOURCE}'
+)
+set (DEFAULT_VALA_OPTIONS
+	${VAPIDIRS}
+	--thread
+	--enable-experimental
+	--target-glib=2.32
+	--debug
+	-g
+)
 
-add_subdirectory(test)
+add_subdirectory (src)
+add_subdirectory (test)
 
 install (
-	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.vapi ${PPKGNAME}-${PPKGVERSION}.deps manifest.json documentation.md
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/ServiceThing-${PPKGVERSION}/)
-install (
-	FILES ${CMAKE_CURRENT_BINARY_DIR}/${PPKGNAME}-${PPKGVERSION}.h
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/ServiceThing-${PPKGVERSION}/)
-install (
-	TARGETS ${PPKGNAME}-${PPKGVERSION}
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/ServiceThing-${PPKGVERSION}/)
+	FILES manifest.json documentation.md
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+)
