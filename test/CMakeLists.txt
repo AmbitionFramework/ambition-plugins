@@ -9,7 +9,10 @@ SET( TAPST_VALA_PACKAGES
 )
 
 vala_precompile(TAPST_VALA_C
+    DeserializeJsonTest.vala
     ServiceThingTest.vala
+    SerializeJsonTest.vala
+    TestClasses.vala
 PACKAGES
     ${TAPST_VALA_PACKAGES}
 OPTIONS

@@ -29,6 +29,7 @@ namespace Ambition.Filter {
 		public unowned ServiceMethod? service_method { get; set; }
 
 		public static HashMap<string,Serializer.ISerializer> serializers { get; set; }
+		public static HashMap<string,Deserializer.IDeserializer> deserializers { get; set; }
 
 		class construct {
 			serializers = new HashMap<string,Serializer.ISerializer>();
@@ -37,6 +38,10 @@ namespace Ambition.Filter {
 			serializers["text/xml"] = serializers["application/xml"];
 			serializers["text/json"] = serializers["application/json"];
 			serializers["text/html"] = new Serializer.HTML();
+
+			deserializers = new HashMap<string,Deserializer.IDeserializer>();
+			deserializers["application/json"] = new Deserializer.JSON();
+			deserializers["text/json"] = deserializers["application/json"];
 		}
 
 		public Service( ServiceMethod? service_method ) {
@@ -45,6 +50,10 @@ namespace Ambition.Filter {
 
 		public static Result filter ( State state, IActionFilter af ) {
 			Object incoming = new Object();
+			var content_type = state.request.content_type;
+			if ( deserializers.has_key(content_type) ) {
+				incoming = deserializers[content_type].deserialize( (string) state.request.request_body, typeof(Object));
+			}
 			Object o = ( (Service) af ).service_method( state, incoming );
 			string accept_type = "text/html";
 			var headers = state.request.headers;

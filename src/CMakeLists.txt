@@ -1,4 +1,6 @@
 SET( APST_VALA_FILES
+	Deserializer/IDeserializer.vala
+	Deserializer/JSON.vala
 	ServiceThingPlugin.vala
 	Service.vala
 	Serializer/ISerializer.vala
