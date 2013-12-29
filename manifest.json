@@ -1,0 +1,17 @@
+{
+	"name" : "Couchbase",
+	"version" : "0.1.0",
+	"author" : "ambitionframework.org",
+	"description" : "Couchbase integration for Ambition",
+	"require-link" : true,
+	"documentation" : "documentation.md",
+	"headers" : [
+		"ambition-plugin-couchbase-0.1.0.h"
+	],
+	"libraries" : [
+		"ambition-plugin-couchbase-0.1.0"
+	],
+	"pkgconfig-dependencies" : [
+		"gcouchbase-0.1"
+	]
+}
