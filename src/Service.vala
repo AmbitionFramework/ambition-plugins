@@ -24,7 +24,7 @@ using Ambition.PluginSupport.ServiceThing;
 namespace Ambition.Filter {
 	public class Service : Object,IActionFilter {
 
-		public delegate Object ServiceMethod( State state, Object o );
+		public delegate Object ServiceMethod( State state );
 
 		public unowned ServiceMethod? service_method { get; set; }
 
@@ -49,12 +49,7 @@ namespace Ambition.Filter {
 		}
 
 		public static Result filter ( State state, IActionFilter af ) {
-			Object incoming = new Object();
-			var content_type = state.request.content_type;
-			if ( deserializers.has_key(content_type) ) {
-				incoming = deserializers[content_type].deserialize( (string) state.request.request_body, typeof(Object));
-			}
-			Object o = ( (Service) af ).service_method( state, incoming );
+			Object o = ( (Service) af ).service_method( state );
 			string accept_type = "text/html";
 			var headers = state.request.headers;
 			if ( headers.has_key("Accept") ) {
