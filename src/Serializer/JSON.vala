@@ -155,6 +155,14 @@ namespace Ambition.PluginSupport.ServiceThing.Serializer {
 						serialize_object_as_object( element, b );
 					}
 					break;
+				default:
+					if ( generic_type.is_object() ) {
+						ArrayList<Object> array = (ArrayList<Object>) v;
+						foreach ( var element in array ) {
+							serialize_object_as_object( element, b );
+						}
+					}
+					break;
 			}
 			b.end_array();
 		}
