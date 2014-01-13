@@ -45,21 +45,20 @@ namespace Ambition.Engine {
 				Logger.error("Request received without headers. Server may be misconfigured.");
 				return;
 			}
-			
+
 			State state = this.dispatcher.initialize_state("scgi");
-			
+
 			var headers = new HashMap<string,string>();
 			foreach ( string k in scgi_req.params.get_keys() ) {
 				headers[k] = scgi_req.params[k];
 			}
-			
+
 			string protocol = scgi_req.params["SERVER_PROTOCOL"];
 			int i;
 			if ( (i = protocol.index_of("/")) != -1 ) {
 				protocol = protocol[0:i];
 			}
 			protocol = protocol.down();
-			
 
 			var method = scgi_req.params["REQUEST_METHOD"];
 			var request_params = Request.params_from_string( scgi_req.params["QUERY_STRING"] );
@@ -78,19 +77,19 @@ namespace Ambition.Engine {
 				content_type
 			);
 			state.request.user_agent = scgi_req.params["USER_AGENT"];
-			
+
 			if ( content_length > 0 ) {
 				var stream = new DataInputStream( scgi_req.input );
 				hook_parse_request_body( state, content_length, stream );
 			}
-			
+
 			this._after_request(state);
 			this.dispatcher.handle_request( state );
 			this._after_render(state);
-			
+
 			write_response(scgi_req, state);
 		}
-		
+
 		private void write_response( scgi.Request scgi_req, State state ) {
 			try {
 				scgi_req.output.write(
@@ -99,12 +98,12 @@ namespace Ambition.Engine {
 			} catch ( IOError e ) {
 				Logger.error( "Unable to write HTTP status to SCGI: %s", e.message );
 			}
-			
+
 			var raw_headers = new HashMap<string,string>();
 			raw_headers.set_all(state.response.headers);
-			
+
 			raw_headers["Date"] = new DateTime.now_utc().format("%a, %d %b %Y %H:%M:%S %Z");
-			if ( state.response.body != null ) {
+			if ( state.response.get_body_length() > 0 ) {
 				raw_headers["Content-Type"] = state.response.content_type;
 				raw_headers["Content-Length"] = state.response.get_body_length().to_string();
 			}
@@ -118,16 +117,19 @@ namespace Ambition.Engine {
 					Logger.error( "Unable to write header %s to SCGI: %s", header_key, e.message );
 				}
 			}
-			
+
 			try {
 				scgi_req.output.write("\r\n".data);
 			} catch ( IOError e ) {
 				Logger.error( "Unable to finish writing headers to SCGI: %s", e.message );
 			}
-			
+
 			if ( state.request.method != HttpMethod.HEAD && state.response.get_body_length() > 0 ) {
 				try {
-					scgi_req.output.splice( state.response.get_body_data(), OutputStreamSpliceFlags.CLOSE_SOURCE  );
+					scgi_req.output.splice(
+						state.response.get_body_data(),
+						OutputStreamSpliceFlags.CLOSE_SOURCE
+					);
 				} catch ( IOError e ) {
 					Logger.error( "Unable to write body data to SCGI: %s", e.message );
 				}
