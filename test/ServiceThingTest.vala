@@ -72,5 +72,16 @@ public static void add_tests() {
 		assert( result != null );
 		assert( result == "application/json" );
 	});
+	Test.add_func("/ambition/plugin/servicething/determine_serialize/bad", () => {
+		var state = new Ambition.State("test");
+		state.request = new Ambition.Request();
+		state.request.headers = new Gee.HashMap<string,string>();
+		state.response = new Ambition.Response();
+		var result = Ambition.Filter.Service.determine_serialize(
+			state, new Object()
+		);
+		assert( result == "" );
+		assert( state.response.status == 400 );
+	});
 }
 

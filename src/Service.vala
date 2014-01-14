@@ -50,19 +50,7 @@ namespace Ambition.Filter {
 
 		public static Result filter ( State state, IActionFilter af ) {
 			Object o = ( (Service) af ).service_method( state );
-			string accept_type = "text/html";
-			var headers = state.request.headers;
-			string? best_accept_type = null;
-			if ( headers.has_key("Accept") ) {
-				best_accept_type = parse_accept_header( headers["Accept"] );
-			} else if ( headers.has_key("HTTP_ACCEPT") ) {
-				best_accept_type = parse_accept_header( headers["HTTP_ACCEPT"] );
-			}
-			if ( best_accept_type != null ) {
-				accept_type = best_accept_type;
-			}
-			string result = serializers[accept_type].serialize(o);
-			state.response.content_type = accept_type;
+			string? result = determine_serialize( state, o );
 			return new Ambition.CoreView.RawString(result);
 		}
 
@@ -114,6 +102,28 @@ namespace Ambition.Filter {
 			}
 
 			return null;
+		}
+
+		public static string? determine_serialize( State state, Object o ) {
+			string? accept_type = null;
+			var headers = state.request.headers;
+			string? best_accept_type = null;
+			if ( headers.has_key("Accept") ) {
+				best_accept_type = parse_accept_header( headers["Accept"] );
+			} else if ( headers.has_key("HTTP_ACCEPT") ) {
+				best_accept_type = parse_accept_header( headers["HTTP_ACCEPT"] );
+			}
+			if ( best_accept_type != null ) {
+				accept_type = best_accept_type;
+			}
+			string result = "";
+			if ( accept_type != null ) {
+				result = serializers[accept_type].serialize(o);
+				state.response.content_type = accept_type;
+			} else {
+				state.response.status = 400;
+			}
+			return result;
 		}
 	}
 }
