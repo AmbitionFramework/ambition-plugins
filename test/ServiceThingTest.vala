@@ -62,5 +62,15 @@ public static void add_tests() {
 		result = Ambition.Filter.Service.parse_accept_header(accept_header_5);
 		assert( result == null );
 	});
+	Test.add_func("/ambition/plugin/servicething/parse_accept/default", () => {
+		string? accept_header = null;
+		var result = Ambition.Filter.Service.parse_accept_header(accept_header);
+		assert( result == null );
+
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		result = Ambition.Filter.Service.parse_accept_header(accept_header);
+		assert( result != null );
+		assert( result == "application/json" );
+	});
 }
 

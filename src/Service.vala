@@ -71,42 +71,48 @@ namespace Ambition.Filter {
 		 * available serializers.
 		 * @param accept_header Original HTTP Accept header
 		 */
-		public static string? parse_accept_header( string accept_header ) {
+		public static string? parse_accept_header( string? accept_header ) {
 			var accept_list = new ArrayList<string>();
-			foreach ( var accept_dirty in accept_header.split(",") ) {
-				var accept = accept_dirty.replace( " ", "" );
-				string q = "1.0";
-				if ( ";" in accept ) {
-					string[] accept_pair = accept.split(";");
-					accept = accept_pair[0];
-					for ( int i = 1; i < accept_pair.length; i++ ) {
-						string[] qualifier = accept_pair[i].split("=");
-						if ( qualifier[0] == "q" ) {
-							q = qualifier[1];
+			if ( accept_header != null ) {
+				foreach ( var accept_dirty in accept_header.split(",") ) {
+					var accept = accept_dirty.replace( " ", "" );
+					string q = "1.0";
+					if ( ";" in accept ) {
+						string[] accept_pair = accept.split(";");
+						accept = accept_pair[0];
+						for ( int i = 1; i < accept_pair.length; i++ ) {
+							string[] qualifier = accept_pair[i].split("=");
+							if ( qualifier[0] == "q" ) {
+								q = qualifier[1];
+							}
 						}
 					}
+					accept_list.add( "%s|%s".printf( q, accept ) );
 				}
-				accept_list.add( "%s|%s".printf( q, accept ) );
+				// TODO: Holy crap, I hate this.
+				// Sort by q, in reverse order
+				accept_list.sort(
+					(a, b) => {
+						string[] a_array = a.split("|");
+						string[] b_array = b.split("|");
+						double aa = double.parse(a_array[0]);
+						double bb = double.parse(b_array[0]);
+						if ( aa == bb ) return 0;
+						if ( aa > bb )  return -1;
+						return 1;
+					}
+				);
+				foreach ( var accept_combo_string in accept_list ) {
+					string[] accept_combo = accept_combo_string.split("|");
+					if ( serializers.has_key( accept_combo[1] ) ) {
+						return accept_combo[1];
+					}
+				}
 			}
-			// TODO: Holy crap, I hate this.
-			// Sort by q, in reverse order
-			accept_list.sort(
-				(a, b) => {
-					string[] a_array = a.split("|");
-					string[] b_array = b.split("|");
-					double aa = double.parse(a_array[0]);
-					double bb = double.parse(b_array[0]);
-					if ( aa == bb ) return 0;
-					if ( aa > bb )  return -1;
-					return 1;
-				}
-			);
-			foreach ( var accept_combo_string in accept_list ) {
-				string[] accept_combo = accept_combo_string.split("|");
-				if ( serializers.has_key( accept_combo[1] ) ) {
-					return accept_combo[1];
-				}
+			if ( Ambition.ServiceThing.default_accept_type != null ) {
+				return Ambition.ServiceThing.default_accept_type;
 			}
+
 			return null;
 		}
 	}
