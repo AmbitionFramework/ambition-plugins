@@ -113,10 +113,12 @@ namespace Ambition.PluginSupport.ServiceThing.Serializer {
 		}
 
 		private static void serialize_stringarray( Value v, Json.Builder b ) {
-			weak string[] array = (string[]) v;
 			b.begin_array();
-			foreach ( var element in array ) {
-				b.add_string_value(element);
+			if ( v.peek_pointer() != null ) {
+				weak string[] array = (string[]) v;
+				foreach ( var element in array ) {
+					b.add_string_value(element);
+				}
 			}
 			b.end_array();
 		}
