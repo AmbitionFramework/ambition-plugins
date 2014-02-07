@@ -4,5 +4,10 @@
 	"author" : "ambitionframework.org",
 	"description" : "Provide built-in support for a SCGI engine.",
 	"documentation" : "documentation.md",
-	"require-link" : false
+	"require-link" : false,
+	"pkgconfig-dependencies" : [
+		"libgscgi-1.0",
+		"gee-0.8",
+		"gio-2.0"
+	]
 }
