@@ -71,9 +71,9 @@ file(
 )
 install(
 	DIRECTORY ${CMAKE_BINARY_DIR}/share/scaffold-engine-scgi
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share
 )
 install (
 	FILES manifest.json documentation.md
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
