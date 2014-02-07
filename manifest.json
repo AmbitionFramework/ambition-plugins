@@ -12,6 +12,8 @@
 		"ambition-plugin-couchbase-0.1.0"
 	],
 	"pkgconfig-dependencies" : [
-		"gcouchbase-0.1"
+		"gcouchbase-0.1",
+		"gee-0.8",
+		"gio-2.0"
 	]
 }

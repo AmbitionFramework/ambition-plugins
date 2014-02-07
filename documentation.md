@@ -2,7 +2,7 @@
 
 ## What is it for?
 
-The Couchbase plugin provides <a href="http://www.couchbase.com/">Couchbase</a>/<a href="http://gcouchbase.ambitionframework.org">GCouchbase</a>a> integration for Ambition. This includes the ability to use Couchbase as storage for sessions.
+The Couchbase plugin provides <a href="http://www.couchbase.com/">Couchbase</a>/<a href="http://gcouchbase.ambitionframework.org">GCouchbase</a> integration for Ambition. This includes the ability to use Couchbase as storage for sessions.
 
 ## Installation and Configuration
 
