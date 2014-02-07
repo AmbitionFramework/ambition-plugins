@@ -10,5 +10,9 @@
 	],
 	"libraries" : [
 		"ambition-plugin-servicething-0.1.0"
+	],
+	"pkgconfig-dependencies" : [
+		"gee-0.8",
+		"gio-2.0"
 	]
 }
