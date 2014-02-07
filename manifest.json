@@ -10,5 +10,8 @@
 	],
 	"libraries" : [
 		"ambition-plugin-twitterbootstrap-0.1.0"
+	],
+	"pkgconfig-dependencies" : [
+		"gio-2.0"
 	]
 }
