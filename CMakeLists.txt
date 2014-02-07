@@ -67,5 +67,5 @@ add_subdirectory (test)
 
 install (
 	FILES manifest.json documentation.md
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
