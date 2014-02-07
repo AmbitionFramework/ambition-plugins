@@ -72,9 +72,9 @@ file (
 )
 install (
 	DIRECTORY ${CMAKE_BINARY_DIR}/share/scaffold-plugin-almanna
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share
 )
 install (
 	FILES manifest.json documentation.md
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ambition-framework/plugins/${PLUGINNAME}-${PPKGVERSION}/
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
