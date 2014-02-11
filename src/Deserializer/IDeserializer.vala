@@ -21,6 +21,6 @@
 
 namespace Ambition.PluginSupport.ServiceThing.Deserializer {
 	public interface IDeserializer : Object {
-		public abstract Object? deserialize( string serialized, Type object_type );
+		public abstract Object? deserialize( string? serialized, Type object_type );
 	}
 }

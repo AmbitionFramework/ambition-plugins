@@ -36,17 +36,19 @@ namespace Ambition.PluginSupport.ServiceThing.Deserializer {
 			deserializers[ Json.NodeType.OBJECT ] = new DeserializeNodeWrapper(parse_object);
 		}
 
-		public Object? deserialize( string serialized, Type object_type ) {
+		public Object? deserialize( string? serialized, Type object_type ) {
 			Object? o = null;
-			try {
-				var parser = new Json.Parser();
-				parser.load_from_data( serialized, -1 );
-				var root = parser.get_root();
-				Value v = Value( object_type );
-				parse_object( ref v, root );
-				o = v.get_object();
-			} catch (Error e) {
-				stderr.printf( "%s\n", e.message );
+			if ( serialized != null ) {
+				try {
+					var parser = new Json.Parser();
+					parser.load_from_data( serialized, -1 );
+					var root = parser.get_root();
+					Value v = Value( object_type );
+					parse_object( ref v, root );
+					o = v.get_object();
+				} catch (Error e) {
+					stderr.printf( "%s\n", e.message );
+				}
 			}
 			return o;
 		}
