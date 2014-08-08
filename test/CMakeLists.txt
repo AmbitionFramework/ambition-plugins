@@ -28,11 +28,12 @@ set(TAPBS_LIB_PATHS
     ${CMAKE_BINARY_DIR}/src
 )
 add_definitions(${TAPBS_CFLAGS})
+link_directories(${TAPBS_LIB_PATHS})
 
 add_executable(${BINNAME} ${TAPBS_VALA_C})
 include_directories(${CMAKE_BINARY_DIR}/src)
 add_dependencies(${BINNAME} ${PPKGNAME}-${PPKGVERSION})
-target_link_libraries(${BINNAME} ${TAPBS_DEPS_LIBRARIES} gthread-2.0 ${PPKGNAME}-${PPKGVERSION})
+target_link_libraries(${BINNAME} ${TAPBS_DEPS_LIBRARIES} ${PPKGNAME}-${PPKGVERSION})
 include(Tests)
 add_test_executable(${BINNAME})
 set(ENV{LD_LIBRARY_PATH} "..:$ENV{LD_LIBRARY_PATH}")
