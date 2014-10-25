@@ -17,12 +17,15 @@ namespace Ambition {
 		 */
 		public static T? get_request_object<T> ( State state ) {
 			T? incoming = null;
-			var content_type = state.request.content_type;
-			var deserializers = Ambition.Filter.Service.deserializers;
-			if ( deserializers.has_key(content_type) ) {
-				incoming = deserializers[content_type].deserialize( (string) state.request.request_body, typeof(T) );
+			string[] types = state.request.content_type.split(";");
+			foreach ( var content_type in types ) {
+				var deserializers = Ambition.Filter.Service.deserializers;
+				if ( deserializers.has_key(content_type) ) {
+					incoming = deserializers[content_type].deserialize( (string) state.request.request_body, typeof(T) );
+					return incoming;
+				}
 			}
-			return incoming;
+			return null;
 		}
 	}
 }
