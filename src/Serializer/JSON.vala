@@ -86,7 +86,11 @@ namespace Ambition.PluginSupport.ServiceThing.Serializer {
 					b.set_member_name(member_name);
 					Value v = Value( ps.value_type );
 					o.get_property( ps.name, ref v );
-					serializer_wrapper.serializer( v, b );
+					if ( ( v.fits_pointer() == false || v.peek_pointer() == null ) && ( ps.value_type.is_object() || ps.value_type.is_derived() ) ) {
+						b.add_null_value();
+					} else {
+						serializer_wrapper.serializer( v, b );
+					}
 				}
 			}
 
@@ -120,7 +124,7 @@ namespace Ambition.PluginSupport.ServiceThing.Serializer {
 
 		private static void serialize_stringarray( Value v, Json.Builder b ) {
 			b.begin_array();
-			if ( v.peek_pointer() != null ) {
+			if ( v.fits_pointer() == true ) {
 				weak string[] array = (string[]) v;
 				foreach ( var element in array ) {
 					b.add_string_value(element);
@@ -160,14 +164,18 @@ namespace Ambition.PluginSupport.ServiceThing.Serializer {
 				case "GObject":
 					ArrayList<Object> array = (ArrayList<Object>) v;
 					foreach ( var element in array ) {
-						serialize_object_as_object( element, b );
+						if ( element != null ) {
+							serialize_object_as_object( element, b );
+						}
 					}
 					break;
 				default:
 					if ( generic_type.is_object() ) {
 						ArrayList<Object> array = (ArrayList<Object>) v;
 						foreach ( var element in array ) {
-							serialize_object_as_object( element, b );
+							if ( element != null ) {
+								serialize_object_as_object( element, b );
+							}
 						}
 					}
 					break;
