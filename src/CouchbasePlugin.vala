@@ -32,6 +32,7 @@ namespace Ambition.PluginSupport {
 		public void register_plugin() {
 			var type = typeof(Ambition.Session.StorableCouchbase);
 			type = typeof(Ambition.Session.CouchbaseSession);
+			type = typeof(Couchbase.Plugin);
 		}
 	}
 }

@@ -20,7 +20,7 @@ ENDIF()
 
 set (PPKGNAME ambition-plugin-couchbase)
 set (PLUGINNAME Couchbase)
-set (PPKGVERSION 0.1.0)
+set (PPKGVERSION 0.1.1)
 set (PREFIX ${CMAKE_INSTALL_PREFIX})
 set (DOLLAR "$")
 
