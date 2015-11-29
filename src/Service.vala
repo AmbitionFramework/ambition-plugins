@@ -59,7 +59,7 @@ namespace Ambition.Filter {
 		 * available serializers.
 		 * @param accept_header Original HTTP Accept header
 		 */
-		public static string? parse_accept_header( string? accept_header ) {
+		public static string? parse_accept_header( string? accept_header = null ) {
 			var accept_list = new ArrayList<string>();
 			if ( accept_header != null ) {
 				foreach ( var accept_dirty in accept_header.split(",") ) {
@@ -112,11 +112,16 @@ namespace Ambition.Filter {
 				best_accept_type = parse_accept_header( headers["Accept"] );
 			} else if ( headers.has_key("HTTP_ACCEPT") ) {
 				best_accept_type = parse_accept_header( headers["HTTP_ACCEPT"] );
+			} else {
+				best_accept_type = parse_accept_header();
 			}
 			if ( best_accept_type != null ) {
 				accept_type = best_accept_type;
 			}
 			string result = "";
+
+			// If we found an accept_type, serialize and set content type, else
+			// it is a bad request.
 			if ( accept_type != null ) {
 				result = serializers[accept_type].serialize(o);
 				state.response.content_type = accept_type;
