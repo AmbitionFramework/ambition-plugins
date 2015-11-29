@@ -1,15 +1,15 @@
 {
 	"name" : "ServiceThing",
-	"version" : "0.1.1",
+	"version" : "0.1.2",
 	"author" : "ambitionframework.org",
 	"description" : "Easy Services for Ambition",
 	"require-link" : true,
 	"documentation" : "documentation.md",
 	"headers" : [
-		"ambition-plugin-servicething-0.1.1.h"
+		"ambition-plugin-servicething-0.1.2.h"
 	],
 	"libraries" : [
-		"ambition-plugin-servicething-0.1.1"
+		"ambition-plugin-servicething-0.1.2"
 	],
 	"pkgconfig-dependencies" : [
 		"gee-0.8",

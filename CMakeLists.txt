@@ -20,7 +20,7 @@ ENDIF()
 
 set (PPKGNAME ambition-plugin-servicething)
 set (PLUGINNAME ServiceThing)
-set (PPKGVERSION 0.1.1)
+set (PPKGVERSION 0.1.2)
 set (PREFIX ${CMAKE_INSTALL_PREFIX})
 set (DOLLAR "$")
 

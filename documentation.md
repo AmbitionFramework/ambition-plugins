@@ -2,11 +2,15 @@
 
 ## What is it for?
 
-The ServiceThing plugin allows for the easy creation of services and RESTful APIs.
+The ServiceThing plugin allows for the easy creation of services and RESTful
+APIs using Ambition.
+
+The plugin is currently limited to JSON requests and responses.
 
 ## Installation and Configuration
 
-The ServiceThing plugin can be installed using the usual Ambition plugin tool. The plugin will link with your application.
+The ServiceThing plugin can be installed using the usual Ambition plugin tool.
+The plugin will link with your application.
 
 ## Quick Example
 
@@ -17,6 +21,8 @@ In actions.conf:
 
 In Root.vala:
 
+    using Ambition.PluginSupport.ServiceThing;
+
     public Object service( State state ) {
         var to = new TestResponseObject();
         to.some_response = "Test";
@@ -24,13 +30,18 @@ In Root.vala:
     }
 
     public Object change_service( State state ) {
+        // Convert the serialized request into a usable object
         var req_object = ServiceThing.get_request_object<TestRequestObject>(state);
+
+        // If there wasn't an issue, generate a response to serialize and return
         if ( req_object != null ) {
             var to = new TestResponseObject();
             to.some_response = req_object.some_value;
             return to;
         }
-        return null;
+
+        // If there was, generate a generic bad request response
+        return Helper.bad_request(state);
     }
 
 Elsewhere:
