@@ -22,7 +22,6 @@ namespace Ambition {
 				var deserializers = Ambition.Filter.Service.deserializers;
 				if ( deserializers.has_key(content_type) ) {
 					incoming = deserializers[content_type].deserialize( (string) state.request.request_body, typeof(T) );
-					stderr.printf( "incoming is %s null\n", ( incoming == null ? "" : "not" ) );
 					return incoming;
 				}
 			}

@@ -71,17 +71,106 @@ public static void add_tests() {
 		result = Ambition.Filter.Service.parse_accept_header(accept_header);
 		assert( result != null );
 		assert( result == "application/json" );
+		Ambition.ServiceThing.default_accept_type = null;
 	});
 	Test.add_func("/ambition/plugin/servicething/determine_serialize/bad", () => {
-		var state = new Ambition.State("test");
-		state.request = new Ambition.Request();
-		state.request.headers = new Gee.HashMap<string,string>();
-		state.response = new Ambition.Response();
+		var state = get_state();
 		var result = Ambition.Filter.Service.determine_serialize(
 			state, new Object()
 		);
-		assert( result == "" );
-		assert( state.response.status == 400 );
+		assert( state.response.status == 415 );
 	});
+	Test.add_func("/ambition/plugin/servicething/helper/bad_request", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.bad_request(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 400 );
+		assert( """"code":400""" in result );
+		assert( """"message":"Bad Request"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/unauthenticated", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.unauthenticated(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 401 );
+		assert( """"code":401""" in result );
+		assert( """"message":"Unauthenticated"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/forbidden", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.forbidden(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 403 );
+		assert( """"code":403""" in result );
+		assert( """"message":"Forbidden"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/not_found", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.not_found(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 404 );
+		assert( """"code":404""" in result );
+		assert( """"message":"Not Found"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/method_not_allowed", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.method_not_allowed(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 405 );
+		assert( """"code":405""" in result );
+		assert( """"message":"Method Not Allowed"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/unsupported_media_type", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.unsupported_media_type(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 415 );
+		assert( """"code":415""" in result );
+		assert( """"message":"Unsupported Media Type"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+	Test.add_func("/ambition/plugin/servicething/helper/failure", () => {
+		Ambition.ServiceThing.default_accept_type = "application/json";
+		var state = get_state();
+		Object o = Ambition.PluginSupport.ServiceThing.Helper.failure(state);
+		assert( o != null );
+		var result = Ambition.Filter.Service.determine_serialize( state, o );
+		assert( result != null );
+		assert( state.response.status == 500 );
+		assert( """"code":500""" in result );
+		assert( """"message":"Server Error"""" in result );
+		Ambition.ServiceThing.default_accept_type = null;
+	});
+}
+
+private static Ambition.State get_state() {
+	var state = new Ambition.State("test");
+	state.request = new Ambition.Request();
+	state.request.headers = new Gee.HashMap<string,string>();
+	state.response = new Ambition.Response();
+	return state;
 }
 

@@ -2,6 +2,8 @@ SET( APST_VALA_FILES
 	Deserializer/IDeserializer.vala
 	Deserializer/JSON.vala
 	Deserializer/JSONNode.vala
+	ErrorMessage.vala
+	Helper.vala
 	ServiceThingPlugin.vala
 	ServiceThing.vala
 	Service.vala

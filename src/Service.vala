@@ -126,7 +126,8 @@ namespace Ambition.Filter {
 				result = serializers[accept_type].serialize(o);
 				state.response.content_type = accept_type;
 			} else {
-				state.response.status = 400;
+				var obj = (ErrorMessage) Helper.unsupported_media_type(state);
+				result = obj.message;
 			}
 			return result;
 		}
