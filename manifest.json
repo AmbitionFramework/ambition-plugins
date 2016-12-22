@@ -6,10 +6,10 @@
 	"require-link" : true,
 	"documentation" : "documentation.md",
 	"headers" : [
-		"ambition-plugin-almanna-0.1.0.h"
+		"ambition-plugin-almanna-0.1.1.h"
 	],
 	"libraries" : [
-		"ambition-plugin-almanna-0.1.0"
+		"ambition-plugin-almanna-0.1.1"
 	],
 	"pkgconfig-dependencies" : [
 		"almanna-0.1",
