@@ -6,10 +6,10 @@
 	"require-link" : true,
 	"documentation" : "documentation.md",
 	"headers" : [
-		"ambition-plugin-couchbase-0.1.0.h"
+		"ambition-plugin-couchbase-0.1.2.h"
 	],
 	"libraries" : [
-		"ambition-plugin-couchbase-0.1.0",
+		"ambition-plugin-couchbase-0.1.2",
 		"libcouchbase"
 	],
 	"pkgconfig-dependencies" : [
