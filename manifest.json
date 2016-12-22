@@ -6,7 +6,7 @@
 	"require-link" : true,
 	"documentation" : "documentation.md",
 	"libraries" : [
-		"ambition-helper-textcaptcha-0.1.0"
+		"ambition-helper-textcaptcha-0.1.1"
 	],
 	"pkgconfig-dependencies" : [
 		"libsoup-2.4",
