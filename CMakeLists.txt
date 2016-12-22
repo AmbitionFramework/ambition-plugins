@@ -9,6 +9,8 @@ include(ValaVersion)
 include(ValaPrecompile)
 ensure_vala_version("0.16.0" MINIMUM)
 
+find_package(Ambition REQUIRED)
+
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 	SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "install prefix" FORCE)
 ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -28,7 +30,7 @@ SET( AES_DEPS_PACKAGES
 	glib-2.0
 	gee-0.8
 	gmodule-2.0
-	ambition-0.1
+	${AMBITION_LIBNAME}
 	libgscgi-1.0
 )
 
