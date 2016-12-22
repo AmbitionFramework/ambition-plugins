@@ -6,10 +6,10 @@
 	"require-link" : true,
 	"documentation" : "documentation.md",
 	"headers" : [
-		"ambition-plugin-couchdb-0.1.0.h"
+		"ambition-plugin-couchdb-0.1.1.h"
 	],
 	"libraries" : [
-		"ambition-plugin-couchdb-0.1.0"
+		"ambition-plugin-couchdb-0.1.1"
 	],
 	"pkgconfig-dependencies" : [
 		"couchdb-glib-1.0",
