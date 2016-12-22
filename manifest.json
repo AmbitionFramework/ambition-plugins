@@ -1,6 +1,6 @@
 {
 	"name" : "Almanna",
-	"version" : "0.1.0",
+	"version" : "0.1.1",
 	"author" : "ambitionframework.org",
 	"description" : "Provides built-in support for the Almanna ORM, with entity registration and configuration via the application config file.",
 	"require-link" : true,
@@ -15,5 +15,7 @@
 		"almanna-0.1",
 		"gee-0.8",
 		"gio-2.0"
-	]
+	],
+	"minimum_target_version" : "0.1",
+	"maximum_target_version" : "0.2"
 }

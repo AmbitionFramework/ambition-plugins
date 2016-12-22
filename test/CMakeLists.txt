@@ -33,7 +33,7 @@ add_definitions(${TAPA_CFLAGS})
 
 add_executable(${BINNAME} ${TAPA_VALA_C})
 include_directories(${CMAKE_BINARY_DIR}/src)
-add_dependencies(${BINNAME} ${PKGNAME}-${PKGVERSION})
+add_dependencies(${BINNAME} ${PPKGNAME}-${PPKGVERSION})
 target_link_libraries(${BINNAME} ${APA_DEPS_LIBRARIES} gthread-2.0 ${PPKGNAME}-${PPKGVERSION})
 include(Tests)
 add_test_executable(${BINNAME})
