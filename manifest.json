@@ -1,6 +1,6 @@
 {
 	"name" : "TextCaptcha",
-	"version" : "0.1.0",
+	"version" : "0.1.1",
 	"author" : "ambitionframework.org",
 	"description" : "Provides TextCaptcha integration.",
 	"require-link" : true,
@@ -12,5 +12,7 @@
 		"libsoup-2.4",
 		"gee-0.8",
 		"gio-2.0"
-	]
+	],
+	"minimum_target_version" : "0.1",
+	"maximum_target_version" : "0.2"
 }
