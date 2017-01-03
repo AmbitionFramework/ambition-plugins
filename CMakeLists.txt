@@ -65,6 +65,7 @@ set (DEFAULT_VALA_OPTIONS
 	-g
 )
 
+add_subdirectory (gredis)
 add_subdirectory (src)
 add_subdirectory (test)
 

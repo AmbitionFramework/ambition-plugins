@@ -1,0 +1,3 @@
+[submodule "gredis"]
+	path = gredis
+	url = https://github.com/nmelnick/gredis
