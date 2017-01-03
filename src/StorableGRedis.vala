@@ -36,14 +36,14 @@ namespace Ambition.Session {
 			r_session.session_id = session_id;
 			r_session.session_data = i.serialize();
 			bool success = false;
-			success = instance.set( session_id, r_session.session_data );
+			success = instance.set( "session:" + session_id, r_session.session_data );
 			if (!success) {
 				Logger.error("Unable to save session to Redis.");
 			}
 		}
 
 		public Interface? retrieve( string session_id ) {
-			var data = instance.get(session_id);
+			var data = instance.get("session:" + session_id);
 			if ( data != null ) {
 				return new Interface.from_serialized( session_id, data );
 			}

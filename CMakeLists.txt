@@ -32,6 +32,7 @@ SET( APGR_DEPS_PACKAGES
 	gmodule-2.0
 	${AMBITION_LIBNAME}
 	gredis-0.1
+	hiredis
 )
 
 SET( APGR_VALA_PACKAGES
