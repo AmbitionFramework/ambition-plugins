@@ -1,0 +1,23 @@
+{
+	"name" : "GRedis",
+	"version" : "0.1.0",
+	"author" : "ambitionframework.org",
+	"description" : "Redis integration for Ambition",
+	"require-link" : true,
+	"documentation" : "documentation.md",
+	"headers" : [
+		"ambition-plugin-gredis-0.1.0.h"
+	],
+	"libraries" : [
+		"ambition-plugin-gredis-0.1.0",
+		"hiredis"
+	],
+	"pkgconfig-dependencies" : [
+		"hiredis",
+		"gee-0.8",
+		"gio-2.0",
+		"gredis-0.1"
+	],
+	"minimum_target_version" : "0.1",
+	"maximum_target_version" : "0.2"
+}
