@@ -1,0 +1,21 @@
+{
+	"name" : "CouchDB",
+	"version" : "0.1.1",
+	"author" : "ambitionframework.org",
+	"description" : "CouchDB integration for Ambition",
+	"require-link" : true,
+	"documentation" : "documentation.md",
+	"headers" : [
+		"ambition-plugin-couchdb-0.1.1.h"
+	],
+	"libraries" : [
+		"ambition-plugin-couchdb-0.1.1"
+	],
+	"pkgconfig-dependencies" : [
+		"couchdb-glib-1.0",
+		"gee-0.8",
+		"gio-2.0"
+	],
+	"minimum_target_version" : "0.1",
+	"maximum_target_version" : "0.2"
+}
