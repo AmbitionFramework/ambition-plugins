@@ -1,0 +1,15 @@
+{
+	"name" : "SCGI",
+	"version" : "0.1.1",
+	"author" : "ambitionframework.org",
+	"description" : "Provide built-in support for a SCGI engine.",
+	"documentation" : "documentation.md",
+	"require-link" : false,
+	"pkgconfig-dependencies" : [
+		"libgscgi-1.0",
+		"gee-0.8",
+		"gio-2.0"
+	],
+	"minimum_target_version" : "0.1",
+	"maximum_target_version" : "0.2"
+}
