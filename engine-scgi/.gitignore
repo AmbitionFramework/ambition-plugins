@@ -5,3 +5,4 @@ Makefile
 /*.pc
 *.o
 *.lo
+subprojects/libgscgi

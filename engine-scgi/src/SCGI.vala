@@ -4,8 +4,6 @@
  * The Ambition Web Framework
  * http://www.ambitionframework.org
  *
- * Copyright 2012-2013 Sensical, Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,6 +26,7 @@ namespace Ambition.Engine {
 	 * Threaded SCGI Engine implementation, requiring libgscgi.
 	 */
 	public class SCGI : Base {
+		private Log4Vala.Logger logger = Log4Vala.Logger.get_logger("Ambition.Engine.SCGI");
 
 		public override string name {
 			get { return "SCGI"; }
@@ -36,13 +35,13 @@ namespace Ambition.Engine {
 		public override void execute() {
 			uint16 port = (uint16) int.parse( Config.lookup_with_default( "scgi.port", "3200" ) );
 			int threads = int.parse( Config.lookup_with_default( "scgi.threads", "10" ) );
-			Logger.info( "Starting SCGI engine with %d threads on port %d.".printf( threads, port ) );
+			logger.info( "Starting SCGI engine with %d threads on port %d.".printf( threads, port ) );
 			new scgi.Server( port, threads, request_handler );
 		}
 
 		private void request_handler( scgi.Request scgi_req ) {
 			if ( scgi_req.params.size() == 0 ) {
-				Logger.error("Request received without headers. Server may be misconfigured.");
+				logger.error("Request received without headers. Server may be misconfigured.");
 				return;
 			}
 
@@ -96,7 +95,7 @@ namespace Ambition.Engine {
 					"HTTP/1.1 %i %s\r\n".printf(state.response.status, STATUS_TEXT[state.response.status]).data
 				);
 			} catch ( IOError e ) {
-				Logger.error( "Unable to write HTTP status to SCGI: %s", e.message );
+				logger.error( "Unable to write HTTP status to SCGI: %s".printf(e.message) );
 			}
 
 			var raw_headers = new HashMap<string,string>();
@@ -114,14 +113,14 @@ namespace Ambition.Engine {
 						"%s: %s\r\n".printf( header_key, raw_headers[header_key] ).data
 					);
 				} catch ( IOError e ) {
-					Logger.error( "Unable to write header %s to SCGI: %s", header_key, e.message );
+					logger.error( "Unable to write header %s to SCGI: %s".printf(header_key, e.message) );
 				}
 			}
 
 			try {
 				scgi_req.output.write("\r\n".data);
 			} catch ( IOError e ) {
-				Logger.error( "Unable to finish writing headers to SCGI: %s", e.message );
+				logger.error( "Unable to finish writing headers to SCGI: %s".printf(e.message) );
 			}
 
 			if ( state.request.method != HttpMethod.HEAD && state.response.get_body_length() > 0 ) {
@@ -131,7 +130,7 @@ namespace Ambition.Engine {
 						OutputStreamSpliceFlags.CLOSE_SOURCE
 					);
 				} catch ( IOError e ) {
-					Logger.error( "Unable to write body data to SCGI: %s", e.message );
+					logger.error( "Unable to write body data to SCGI: %s".printf(e.message) );
 				}
 			}
 		}
