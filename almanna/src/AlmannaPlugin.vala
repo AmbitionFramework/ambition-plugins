@@ -4,8 +4,6 @@
  * The Ambition Web Framework
  * http://www.ambitionframework.org
  *
- * Copyright 2012-2013 Sensical, Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,6 +29,7 @@ namespace Ambition.PluginSupport {
 	 * and configuration via the application config file.
 	 */
 	public class AlmannaPlugin : Object,IPlugin {
+		private Log4Vala.Logger logger = Log4Vala.Logger.get_logger("Ambition.PluginSupport.AlmannaPlugin");
 		public string name { get { return "Almanna"; } }
 
 		/*
@@ -77,10 +76,10 @@ namespace Ambition.PluginSupport {
 				try {
 					Server.open(c);
 				} catch ( Error e ) {
-					Logger.error( "Almanna: Unable to open connection to server. (%s)".printf( e.message ) );
+					logger.error( "Almanna: Unable to open connection to server. (%s)".printf( e.message ) );
 					return;
 				}
-				Logger.info( "Almanna: Connected to server." );
+				logger.info( "Almanna: Connected to server." );
 			}
 		}
 	}

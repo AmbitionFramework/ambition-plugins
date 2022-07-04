@@ -1,15 +1,15 @@
 {
 	"name" : "Almanna",
-	"version" : "0.1.1",
+	"version" : "0.2",
 	"author" : "ambitionframework.org",
 	"description" : "Provides built-in support for the Almanna ORM, with entity registration and configuration via the application config file.",
 	"require-link" : true,
-	"documentation" : "documentation.md",
+	"documentation" : "README.md",
 	"headers" : [
-		"ambition-plugin-almanna-0.1.1.h"
+		"ambition-plugin-almanna-0.2.h"
 	],
 	"libraries" : [
-		"ambition-plugin-almanna-0.1.1"
+		"ambition-plugin-almanna-0.2"
 	],
 	"pkgconfig-dependencies" : [
 		"almanna-0.1",

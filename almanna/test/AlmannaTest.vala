@@ -25,6 +25,9 @@ using Gee;
 
 void main (string[] args) {
 	Test.init( ref args );
+	Log4Vala.init();
+	var config = Log4Vala.Config.get_config();
+	config.root_level = Log4Vala.Level.ERROR;
 	add_tests();
 	Test.run();
 }

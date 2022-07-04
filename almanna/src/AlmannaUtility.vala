@@ -4,8 +4,6 @@
  * The Ambition Web Framework
  * http://www.ambitionframework.org
  *
- * Copyright 2012-2013 Sensical, Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,6 +29,7 @@ namespace Ambition.Utility {
 	 * and configuration via the application config file.
 	 */
 	public class AlmannaUtility : Object,IUtility {
+		private Log4Vala.Logger logger = Log4Vala.Logger.get_logger("Ambition.Utility.AlmannaUtility");
 		public string name { get { return "Almanna"; } }
 
 		public void register_utility() {}
@@ -71,10 +70,9 @@ namespace Ambition.Utility {
 									after_rule = true;
 								}
 							}
-							alter_cmakelists(files);
 						}
 					} catch (SpawnError wse) {
-						Logger.error( "Unable to run scaffold: %s".printf( wse.message ) );
+						logger.error( "Unable to run scaffold: %s".printf( wse.message ) );
 						return -1;
 					}
 					break;
