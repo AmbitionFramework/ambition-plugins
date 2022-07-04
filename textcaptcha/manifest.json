@@ -1,12 +1,12 @@
 {
 	"name" : "TextCaptcha",
-	"version" : "0.1.1",
+	"version" : "0.2",
 	"author" : "ambitionframework.org",
 	"description" : "Provides TextCaptcha integration.",
 	"require-link" : true,
-	"documentation" : "documentation.md",
+	"documentation" : "README.md",
 	"libraries" : [
-		"ambition-helper-textcaptcha-0.1.1"
+		"ambition-helper-textcaptcha-0.2"
 	],
 	"pkgconfig-dependencies" : [
 		"libsoup-2.4",
