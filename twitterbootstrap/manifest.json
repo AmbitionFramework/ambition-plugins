@@ -1,15 +1,15 @@
 {
 	"name" : "TwitterBootstrap",
-	"version" : "0.1.2",
+	"version" : "0.2",
 	"author" : "ambitionframework.org",
 	"description" : "Twitter Bootstrap field rendering for form fields in Ambition",
 	"require-link" : true,
-	"documentation" : "documentation.md",
+	"documentation" : "README.md",
 	"headers" : [
-		"ambition-plugin-twitterbootstrap-0.1.2.h"
+		"ambition-plugin-twitterbootstrap-0.2.h"
 	],
 	"libraries" : [
-		"ambition-plugin-twitterbootstrap-0.1.2"
+		"ambition-plugin-twitterbootstrap-0.2"
 	],
 	"pkgconfig-dependencies" : [
 		"gio-2.0"
