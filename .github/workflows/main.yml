@@ -51,19 +51,19 @@ jobs:
         run: cd engine-scgi && meson --prefix=~/.ambition-framework/engine-scgi builddir && cd builddir && ninja && ninja install
 
       - name: jsonschema
-        run: cd jsonschema && meson --prefix=~/.ambition-framework/engine-scgi builddir && cd builddir && ninja && ninja install
+        run: cd jsonschema && meson --prefix=~/.ambition-framework/engine-scgi builddir && cd builddir && ninja && ninja test && ninja install
 
       - name: textcaptcha
-        run: cd textcaptcha && meson --prefix=~/.ambition-framework/textcaptcha builddir && cd builddir && ninja && ninja install
+        run: cd textcaptcha && meson --prefix=~/.ambition-framework/textcaptcha builddir && cd builddir && ninja && ninja test && ninja install
 
       - name: twitterbootstrap
-        run: cd twitterbootstrap && meson --prefix=~/.ambition-framework/twitterbootstrap builddir && cd builddir && ninja && ninja install
+        run: cd twitterbootstrap && meson --prefix=~/.ambition-framework/twitterbootstrap builddir && cd builddir && ninja && ninja test && ninja install
 
       - name: Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Tests
-          path: almanna/builddir/meson-logs/*.xml,textcaptcha/builddir/meson-logs/*.xml,twitterbootstrap/builddir/meson-logs/*.xml
+          path: almanna/builddir/meson-logs/*.xml,jsonschema/builddir/meson-logs/*.xml,textcaptcha/builddir/meson-logs/*.xml,twitterbootstrap/builddir/meson-logs/*.xml
           reporter: java-junit
           fail-on-error: true
