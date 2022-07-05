@@ -1,15 +1,15 @@
 {
 	"name" : "JSONSchema",
-	"version" : "0.1.0",
+	"version" : "0.2",
 	"author" : "ambitionframework.org",
 	"description" : "Parse and Compile JSON Schemas",
 	"require-link" : true,
-	"documentation" : "documentation.md",
+	"documentation" : "README.md",
 	"headers" : [
-		"ambition-plugin-jsonschema-0.1.0.h"
+		"ambition-plugin-jsonschema-0.2.h"
 	],
 	"libraries" : [
-		"ambition-plugin-jsonschema-0.1.0"
+		"ambition-plugin-jsonschema-0.2"
 	],
 	"pkgconfig-dependencies" : [
 		"gee-0.8",

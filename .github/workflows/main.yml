@@ -50,6 +50,9 @@ jobs:
       - name: engine-scgi
         run: cd engine-scgi && meson --prefix=~/.ambition-framework/engine-scgi builddir && cd builddir && ninja && ninja install
 
+      - name: jsonschema
+        run: cd jsonschema && meson --prefix=~/.ambition-framework/engine-scgi builddir && cd builddir && ninja && ninja install
+
       - name: textcaptcha
         run: cd textcaptcha && meson --prefix=~/.ambition-framework/textcaptcha builddir && cd builddir && ninja && ninja install
 
